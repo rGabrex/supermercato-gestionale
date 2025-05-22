@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestione Filiali</title>
+
+    <link
+      rel="stylesheet"
+      href="/supermercato-gestionale/static/css/filiali.css"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/0e2469dc9c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header-section">
+      <h1>Lista delle filiali disponibili</h1>
+
+      <div class="header-cta">
+        <input
+          type="text"
+          class="searchbar"
+          id="searchbar"
+          placeholder="Cerca filiale..."
+        />
+
+        <div class="header-filters">
+          <button class="alp-dec" id="alpDec">
+            <i class="fa-solid fa-arrow-down-a-z"></i>
+          </button>
+          <button class="alp-asc" id="alpAsc">
+            <i class="fa-solid fa-arrow-down-z-a"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="branchModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Edit Branch</h2>
+        <form id="branchForm">
+          <input type="hidden" id="branchId" />
+          <label for="branchName">Name:</label>
+          <input type="text" id="branchName" required />
+
+          <label for="branchCity">City:</label>
+          <input type="text" id="branchCity" required />
+
+          <label for="branchCountry">Country:</label>
+          <input type="text" id="branchCountry" required />
+
+          <button type="submit" id="saveBtn">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="branches-section">
+      <div class="table-container">
+        <table
+          border="1"
+          cellpadding="5"
+          cellspacing="0"
+          class="branches-table"
+          id="branchesTable"
+        >
+          <thead>
+            <tr>
+              <th>Nome della filiale</th>
+              <th>Città</th>
+              <th>Paese</th>
+              <th>Azioni eseguibili</th>
+            </tr>
+          </thead>
+          <tbody class="branches-body" id="branchesBody"></tbody>
+        </table>
+      </div>
+
+      <div class="branches-buttons">
+        <button id="btnAggiungi">
+          Aggiungi filiale <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="/supermercato-gestionale/static/js/gestione-filiali.js"></script>
+  </body>
+</html>
