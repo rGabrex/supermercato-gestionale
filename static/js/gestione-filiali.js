@@ -3,7 +3,27 @@ let filialiGlobali = [];
 document.addEventListener('DOMContentLoaded', () => {
     const searchbar = document.getElementById('searchbar');
     const table = document.getElementById('branchesTable');
+
     const corpoTabella = document.getElementById('branchesBody');
+    corpoTabella.addEventListener('click', (e) => {
+        const target = e.target.closest('button');
+
+        if (!target) return;
+
+        const id = target.getAttribute('data-id');
+
+        if (target.classList.contains('btn-remove')) {
+            if (confirm('Vuoi davvero rimuovere questa filiale?')) {
+                rimuoviFiliale(id);
+            }
+        }
+
+        if (target.classList.contains('btn-edit')) {
+            const filiale = filialiGlobali.find(f => f.id == id);
+            if (filiale) openModal('Modifica filiale', filiale);
+        }
+    });
+
 
     const btnAggiungi = document.getElementById('btnAggiungi');
     const btnAlpDec = document.getElementById('alpDec');
@@ -52,48 +72,108 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             corpoTabella.appendChild(tr);
         });
-
-        attachButtonEvents();
     }
 
-    function attachButtonEvents() {
-        document.querySelectorAll('.btn-remove').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                if (!confirm("Sei sicuro di voler eliminare questa filiale? Marinella Lodon sarà una lagna senza fine!")) return;
+    function aggiungiFiliale(e) { // Funzione di aggiunta filiale
 
-                fetch('/supermercato-gestionale/management/rimuovi-filiali.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Filiale rimossa! Marinella Lodon tira un sospiro di sollievo.');
-                            caricaFiliali();
-                        } else {
-                            alert('Errore nella rimozione: ' + data.error);
-                        }
-                    })
-                    .catch(err => alert('Errore di rete: ' + err));
-            });
-        });
+        e.preventDefault();
 
-        document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                const filiale = filialiGlobali.find(f => f.id == id);
-                if (!filiale) {
-                    alert("Filiale non trovata, Marinella Lodon si incazza!");
-                    return;
+        const nome = document.getElementById('branchName').value.trim();
+        const citta = document.getElementById('branchCity').value.trim();
+        const paese = document.getElementById('branchCountry').value.trim();
+
+        if (!nome || !citta || !paese) {
+            alert('Tutti i campi sono obbligatori');
+            return;
+        }
+
+        const payload = { nome, citta, paese }; // Creo il payload da inviare al PHP
+
+        fetch('/supermercato-gestionale/management/filiale-aggiungi.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Filiale aggiunta con successo');
+                    formBranch.reset();
+                    closeModal();
+                    caricaFiliali(); // Ricarica la tabella aggiornata
+                } else {
+                    alert('Errore nel aggiunta della filiale: ' + data.error);
                 }
-                openModal('Modifica Filiale', filiale);
+            })
+            .catch(err => {
+                console.error('Errore di rete:', err);
+                alert('Errore di rete: ' + err);
             });
-        });
+    };
+
+    function modificaFiliale(e) { // Funzione modifica filiale, stesso di aggiunta ma con ID - Funzione separata per chiarezza
+        e.preventDefault();
+
+        const id = inputId.value.trim();
+        const nome = inputNome.value.trim();
+        const citta = inputCitta.value.trim();
+        const paese = inputPaese.value.trim();
+
+        if (!id || !nome || !citta || !paese) {
+            alert('Tutti i campi sono obbligatori');
+            return;
+        }
+
+        const payload = { id, nome, citta, paese };
+
+        fetch('/supermercato-gestionale/management/filiale-modifica.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Filiale modificata con successo');
+                    formBranch.reset();
+                    closeModal();
+                    caricaFiliali(); // Ricarica la tabella aggiornata
+                } else {
+                    alert('Errore nella modifica della filiale: ' + data.error);
+                }
+            })
+            .catch(err => {
+                console.error('Errore di rete:', err);
+                alert('Errore di rete: ' + err);
+            });
+    }
+
+    function rimuoviFiliale(id) { // Funzione di rimozione filiale
+        fetch('/supermercato-gestionale/management/filiale-rimuovi.php', { // Fetch al file PHP
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(res => res.json()) // Risposta in formato JSON per leggerne il risultato
+            .then(data => {
+                if (data.success) {
+                    alert('Filiale rimossa con successo!');
+                    closeModal();
+                    caricaFiliali(); // Ricarica la tabella aggiornata
+                } else {
+                    alert('Errore nella rimozione della filiale: ' + data.error); // Mostra l'errore in caso di fallimento
+                }
+            })
+            .catch(err => {
+                console.error('Errore di rete:', err);
+                alert('Errore di rete: ' + err);
+            });
     }
 
     function openModal(titolo, filiale = null) {
+        console.log('Classi:', modal.classList);
         modalTitle.textContent = titolo;
 
         if (filiale) {
@@ -129,49 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    formBranch.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const id = inputId.value;
-        const nome = inputNome.value.trim();
-        const citta = inputCitta.value.trim();
-        const paese = inputPaese.value.trim();
-
-        if (!nome || !citta || !paese) {
-            alert('Completa tutti i campi, Marinella Lodon non gradisce mezze misure!');
-            return;
-        }
-
-        const url = id ? '/supermercato-gestionale/management/modifica-filiali.php' : '/supermercato-gestionale/management/aggiungi-filiali.php';
-
-        const payload = id ? { id: parseInt(id), nome, citta, paese } : { nome, citta, paese };
-
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-            .then(res => {
-                console.log('Response status:', res.status);
-                return res.json();
-            })
-            .then(data => {
-                console.log('Risposta PHP:', data);
-                if (data.success) {
-                    alert(id ? 'Filiale modificata con successo, Marinella Lodon è soddisfatta!' : 'Filiale aggiunta, festeggiamo!');
-                    closeModal();
-                    caricaFiliali();
-                } else {
-                    alert('Errore nel salvataggio: ' + data.error);
-                }
-            })
-            .catch(err => {
-                console.error('Errore di rete o parsing:', err);
-                alert('Errore di rete o parsing: ' + err);
-            });
-
-    });
-
     function filtraFiliali() {
         const filter = searchbar.value.toUpperCase();
         const righe = table.getElementsByTagName('tr');
@@ -200,6 +237,16 @@ document.addEventListener('DOMContentLoaded', () => {
     btnAlpAsc.addEventListener('click', () => ordinaTabella(false));  // A->Z
     btnAlpDec.addEventListener('click', () => ordinaTabella(true)); // Z->A
     btnAggiungi.addEventListener('click', () => openModal('Aggiungi nuova filiale'));
+
+    if (formBranch) {
+        formBranch.addEventListener('submit', (e) => {
+            if (inputId.value) {
+                modificaFiliale(e); // Se c'è un ID, modifica la filiale
+            } else {
+                aggiungiFiliale(e); // Altrimenti, aggiungi una nuova filiale
+            }
+        });
+    }
 
     caricaFiliali();
 });
