@@ -2,11 +2,11 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <title>Gestione Filiali</title>
+    <title>Gestione Fornitori</title>
 
     <link
       rel="stylesheet"
-      href="/supermercato-gestionale/static/css/filiali.css"
+      href="/supermercato-gestionale/static/css/fornitori.css"
     />
 
     <script
@@ -16,14 +16,14 @@
   </head>
   <body>
     <div class="header-section">
-      <h1>Lista delle filiali disponibili</h1>
+      <h1>Lista dei fornitori disponibili</h1>
 
       <div class="header-cta">
         <input
           type="text"
           class="searchbar"
           id="searchbar"
-          placeholder="Cerca filiale..."
+          placeholder="Cerca fornitore..."
         />
 
         <div class="header-filters">
@@ -37,54 +37,50 @@
       </div>
     </div>
 
-    <div id="branchModal" class="modal">
+    <div id="supplierModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h2 id="modalTitle">Modifica filiale</h2>
-        <form id="branchForm">
-          <input type="hidden" id="branchId" />
-          <label for="branchName">Nome filiale:</label>
-          <input type="text" id="branchName" required />
+        <h2 id="modalTitle">Modifica fornitore</h2>
+        <form id="supplierForm">
+          <input type="hidden" id="supplierId" />
+          <label for="supplierName">Nome fornitore:</label>
+          <input type="text" id="supplierName" required />
 
-          <label for="branchCity">Citta:</label>
-          <input type="text" id="branchCity" required />
-
-          <label for="branchCountry">Paese:</label>
-          <input type="text" id="branchCountry" required />
+          <label for="supplierNation">Nazione:</label>
+          <input type="text" id="supplierNation" required />
 
           <button type="submit" id="saveBtn">Salva</button>
         </form>
       </div>
     </div>
 
-    <div class="branches-section">
+    <div class="suppliers-section">
       <div class="table-container">
         <table
           border="1"
           cellpadding="5"
           cellspacing="0"
-          class="branches-table"
-          id="branchesTable"
+          class="suppliers-table"
+          id="suppliersTable"
         >
           <thead>
             <tr>
-              <th>Nome della filiale</th>
-              <th>Città</th>
-              <th>Paese</th>
+              <th>Nome del fornitore</th>
+              <th>Nazione</th>
               <th>Azioni eseguibili</th>
             </tr>
           </thead>
-          <tbody class="branches-body" id="branchesBody"></tbody>
+          <tbody class="suppliers-body" id="suppliersBody"></tbody>
         </table>
       </div>
 
-      <div class="branches-buttons">
+      <div class="suppliers-buttons">
         <button id="btnAggiungi">
-          Aggiungi filiale <i class="fa-solid fa-plus"></i>
+          Aggiungi fornitore <i class="fa-solid fa-plus"></i>
         </button>
       </div>
     </div>
 
-    <script src="/supermercato-gestionale/static/js/gestione-filiali.js"></script>
+    <script src="/supermercato-gestionale/static/js/gestione-fornitori.js"></script>
   </body>
 </html>
