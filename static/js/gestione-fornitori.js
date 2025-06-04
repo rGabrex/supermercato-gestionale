@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = { nome, nazione }; // Creo il payload da inviare al PHP
 
-        fetch('/supermercato-gestionale/management/fornitore-aggiungi.php', {
+        fetch('/supermercato-gestionale/controllers/suppliers/fornitore-aggiungi.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = { id, nome, nazione };
 
-        fetch('/supermercato-gestionale/management/fornitore-modifica.php', {
+        fetch('/supermercato-gestionale/controllers/suppliers/fornitore-modifica.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function rimuoviFornitore(id) { // Funzione di rimozione fornitore
-        fetch('/supermercato-gestionale/management/fornitore-rimuovi.php', {
+        fetch('/supermercato-gestionale/controllers/suppliers/fornitore-rimuovi.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

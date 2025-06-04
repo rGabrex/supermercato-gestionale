@@ -1,0 +1,312 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --primary-color: #fffdd0;
+  --secondary-color: #d2b48c;
+  --accent-color: #556b2f;
+  --text-color: #222;
+  --primary-btn-color: #654321;
+  --danger-btn-color: #8b0000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-family: "Outfit", "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 50px;
+  background-color: var(--secondary-color);
+}
+
+.header-section h1 {
+  font-weight: 800;
+  font-size: 3rem;
+}
+
+.header-cta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.searchbar {
+  width: 250px;
+  padding: 10px 15px;
+  border: 2px solid var(--primary-btn-color);
+  border-radius: 12px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.searchbar::placeholder {
+  color: #555;
+  font-family: "Roboto", sans-serif;
+}
+
+.searchbar:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-btn-color);
+}
+
+.header-filters {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.header-filters button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-btn-color);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-filters button:hover {
+  transform: translateY(-2px);
+  background-color: var(--accent-color);
+}
+
+.clients-section {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 120px);
+  padding: 20px 40px;
+  overflow: hidden;
+}
+
+.table-container {
+  flex: 1;
+  overflow-y: auto;
+  margin: 20px 0;
+  position: relative;
+  padding-right: 12px;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 20px;
+  background-color: var(--secondary-color);
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-btn-color);
+  border-radius: 20px;
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.clients-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.clients-table th {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 15px 20px;
+  border: 2px solid;
+  background-color: var(--secondary-color);
+  position: sticky;
+  top: 0;
+}
+
+.clients-table td {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-top: 1px solid #ddd;
+}
+
+.clients-table tbody tr:first-child td {
+  border-top: none;
+}
+
+.clients-table tbody tr:hover {
+  background-color: rgba(210, 180, 140, 0.1);
+}
+
+.clients-body .btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.clients-body button {
+  font-family: "Outfit", "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-btn-color);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clients-body .btn-edit:hover {
+  box-shadow: 0 0 10px var(--primary-btn-color);
+}
+
+.clients-body .btn-remove {
+  background-color: var(--danger-btn-color);
+}
+
+.clients-body .btn-remove:hover {
+  box-shadow: 0 0 10px var(--danger-btn-color);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close:hover {
+  color: #333;
+}
+
+#modalTitle {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+#clientForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+#clientForm label {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: -0.5rem;
+}
+
+#clientForm input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#clientForm input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 5px var(--secondary-color);
+}
+
+#saveBtn {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#saveBtn:hover {
+  background-color: #445a27;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clients-buttons {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.clients-buttons button {
+  font-family: "Outfit", "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clients-body button i,
+.clients-buttons button i {
+  margin-left: 5px;
+}
+
+.clients-buttons button:hover {
+  box-shadow: 0 0 10px var(--accent-color);
+}

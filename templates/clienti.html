@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestione Clienti</title>
+
+    <link
+      rel="stylesheet"
+      href="/supermercato-gestionale/static/css/clienti.css"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/0e2469dc9c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header-section">
+      <h1>Lista dei clienti</h1>
+
+      <div class="header-cta">
+        <h2>Ci sono attualmente: <span id="totalClients">0</span> clienti</h2>
+        <input
+          type="text"
+          class="searchbar"
+          id="searchbar"
+          placeholder="Cerca cliente..."
+        />
+
+        <div class="header-filters">
+          <button class="alp-dec" id="alpDec">
+            <i class="fa-solid fa-arrow-down-a-z"></i>
+          </button>
+          <button class="alp-asc" id="alpAsc">
+            <i class="fa-solid fa-arrow-down-z-a"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="clientModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Modifica cliente</h2>
+        <form id="clientForm">
+          <input type="hidden" id="clientId" />
+          <label for="clientName">Nome cliente:</label>
+          <input type="text" id="clientName" required />
+
+          <label for="clientSurname">Cognome:</label>
+          <input type="text" id="clientSurname" required />
+
+          <label for="clientEmail">Email:</label>
+          <input type="text" id="clientEmail" required />
+
+          <label for="clientBirthdate">Data di Nascita:</label>
+          <input type="text" id="clientBirthdate" required />
+
+          <button type="submit" id="saveBtn">Salva</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="clients-section">
+      <div class="table-container">
+        <table
+          border="1"
+          cellpadding="5"
+          cellspacing="0"
+          class="clients-table"
+          id="clientsTable"
+        >
+          <thead>
+            <tr>
+              <th>Nome del cliente</th>
+              <th>Cognome</th>
+              <th>Email</th>
+              <th>Data Nascita</th>
+              <th>Azioni eseguibili</th>
+            </tr>
+          </thead>
+          <tbody class="clients-body" id="clientsBody"></tbody>
+        </table>
+      </div>
+
+      <div class="clients-buttons">
+        <button id="btnAggiungi">
+          Aggiungi cliente <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="/supermercato-gestionale/static/js/gestione-clienti.js"></script>
+  </body>
+</html>

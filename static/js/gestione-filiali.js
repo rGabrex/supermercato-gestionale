@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = { nome, citta, paese }; // Creo il payload da inviare al PHP
 
-        fetch('/supermercato-gestionale/management/filiale-aggiungi.php', {
+        fetch('/supermercato-gestionale/controllers/branches/filiale-aggiungi.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = { id, nome, citta, paese };
 
-        fetch('/supermercato-gestionale/management/filiale-modifica.php', {
+        fetch('/supermercato-gestionale/controllers/branches/filiale-modifica.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function rimuoviFiliale(id) { // Funzione di rimozione filiale
-        fetch('/supermercato-gestionale/management/filiale-rimuovi.php', { // Fetch al file PHP
+        fetch('/supermercato-gestionale/controllers/branches/filiale-rimuovi.php', { // Fetch al file PHP
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -173,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openModal(titolo, filiale = null) {
-        console.log('Classi:', modal.classList);
         modalTitle.textContent = titolo;
 
         if (filiale) {
