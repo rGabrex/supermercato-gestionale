@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestione Vendite</title>
+
+    <link
+      rel="stylesheet"
+      href="/supermercato-gestionale/static/css/vendite.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/0e2469dc9c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header-section">
+      <h1>Lista delle vendite</h1>
+
+      <div class="header-cta">
+        <input
+          type="text"
+          class="searchbar"
+          id="searchbar"
+          placeholder="Cerca vendita per cliente..."
+        />
+
+        <div class="header-filters">
+          <button class="alp-dec" id="alpDec">
+            <i class="fa-solid fa-arrow-down-a-z"></i>
+          </button>
+          <button class="alp-asc" id="alpAsc">
+            <i class="fa-solid fa-arrow-down-z-a"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="saleModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Modifica vendita</h2>
+        <form id="saleForm">
+          <input type="hidden" id="saleId" />
+
+          <label for="saleCliente">Cliente:</label>
+          <input type="text" id="saleCliente" required />
+
+          <label for="saleProdotto">Prodotto:</label>
+          <input type="text" id="saleProdotto" required />
+
+          <label for="saleQuantita">Quantità:</label>
+          <input type="number" id="saleQuantita" min="1" required />
+
+          <label for="saleData">Data vendita:</label>
+          <input type="date" id="saleData" required />
+
+          <label for="saleFiliale">Filiale (ID):</label>
+          <input type="number" id="saleFiliale" />
+
+          <label for="saleImporto">Importo (€):</label>
+          <input type="number" id="saleImporto" step="0.01" min="0" required />
+
+          <label for="salePagamento">Metodo pagamento:</label>
+          <input type="text" id="salePagamento" />
+
+          <button type="submit" id="saveBtn">Salva</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="sales-section">
+      <div class="table-container">
+        <table
+          border="1"
+          cellpadding="5"
+          cellspacing="0"
+          class="sales-table"
+          id="salesTable"
+        >
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Prodotto</th>
+              <th>Quantità</th>
+              <th>Data vendita</th>
+              <th>Filiale</th>
+              <th>Metodo pagamento</th>
+              <th>Azioni eseguibili</th>
+            </tr>
+          </thead>
+          <tbody class="sales-body" id="salesBody"></tbody>
+        </table>
+      </div>
+
+      <div class="sales-buttons">
+        <button id="btnAggiungi">
+          Aggiungi vendita <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="/supermercato-gestionale/static/js/gestione-vendite.js"></script>
+  </body>
+</html>

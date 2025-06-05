@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestione Prodotti</title>
+
+    <link
+      rel="stylesheet"
+      href="/supermercato-gestionale/static/css/prodotti.css"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/0e2469dc9c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header-section">
+      <h1>Lista dei prodotti</h1>
+
+      <div class="header-cta">
+        <h2>Ci sono attualmente: <span id="totalProducts">0</span> prodotti</h2>
+        <input
+          type="text"
+          class="searchbar"
+          id="searchbar"
+          placeholder="Cerca prodotto per filiale..."
+        />
+
+        <div class="header-filters">
+          <button class="alp-dec" id="alpDec">
+            <i class="fa-solid fa-arrow-down-a-z"></i>
+          </button>
+          <button class="alp-asc" id="alpAsc">
+            <i class="fa-solid fa-arrow-down-z-a"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Modifica prodotto</h2>
+        <form id="productForm">
+          <input type="hidden" id="productId" />
+
+          <label for="productName">Nome prodotto:</label>
+          <input type="text" id="productName" required />
+
+          <label for="productCode">Codice:</label>
+          <input type="text" id="productCode" required />
+
+          <label for="productStock">Giacenza:</label>
+          <input type="number" id="productStock" required />
+
+          <label for="productPrice">Prezzo:</label>
+          <input type="number" step="0.01" id="productPrice" required />
+
+          <label for="productCategory">Categoria:</label>
+          <input type="text" id="productCategory" />
+
+          <label for="productSupplier">Fornitore:</label>
+          <select id="productSupplier"></select>
+
+          <label for="productBranch">Filiale:</label>
+          <select id="productBranch"></select>
+
+          <button type="submit" id="saveBtn">Salva</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="products-section">
+      <div class="table-container">
+        <table
+          border="1"
+          cellpadding="5"
+          cellspacing="0"
+          class="products-table"
+          id="productsTable"
+        >
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Codice</th>
+              <th>Giacenza</th>
+              <th>Prezzo</th>
+              <th>Categoria</th>
+              <th>Fornitore</th>
+              <th>Filiale</th>
+              <th>Azioni eseguibili</th>
+            </tr>
+          </thead>
+          <tbody class="products-body" id="productsBody"></tbody>
+        </table>
+      </div>
+
+      <div class="products-buttons">
+        <button id="btnAggiungi">
+          Aggiungi prodotto <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="/supermercato-gestionale/static/js/gestione-prodotti.js"></script>
+  </body>
+</html>
